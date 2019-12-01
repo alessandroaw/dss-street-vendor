@@ -4,28 +4,28 @@ const session = require('express-session');
 const bodyParser = require("body-parser");
 
 const app = express();
-// const MongoStore = require('connect-mongo')(session);
-// const mongoose = require('./db/mongoose');
-// const db = mongoose.connection;
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('./db/mongoose');
+const db = mongoose.connection;
 
 
-// app.use(session({
-//   secret: 'work hard',
-//   resave: true,
-//   saveUninitialized: false,
-//   store: new MongoStore({
-//     mongooseConnection: db
-//   })
-// }));
+app.use(session({
+  secret: 'work hard',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
+}));
 
 
-// // router
-// const storeRouter = require('./routers/store');;
+// router
+const storeRouter = require('./routers/store');;
 
 // setup response parser 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(storeRouter);
 
 app.get('/', (req, res) => {
   res.send('<h1>work</h1>');
