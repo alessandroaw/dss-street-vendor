@@ -1,0 +1,29 @@
+{
+  "name": "dss-street-vendor",
+  "version": "1.0.0",
+  "description": "This service system is a library management system for Smartcampus platform.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:smartcampusplatform/librarymanagementsystem/services.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "http": "0.0.0",
+    "mongoose": "^5.7.13",
+    "path": "^0.12.7"
+  }
+}
