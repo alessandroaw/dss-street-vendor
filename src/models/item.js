@@ -4,7 +4,7 @@ const itemSchema = new mongoose.Schema({
     idStore: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User'
+        ref: 'Stores'
     },
     itemName: {
         type: String,
@@ -12,6 +12,10 @@ const itemSchema = new mongoose.Schema({
         trim: true
     },
     ingredients: [{
+        ingredientName: {
+            type: String,
+            required: true
+        },
         quantity: {
             type: Number,
             required: true
@@ -23,6 +27,6 @@ const itemSchema = new mongoose.Schema({
     }],
 });
 
-const Item = mongoose.model('Item', itemSchema);
+const Item = mongoose.model('Items', itemSchema);
 
 module.exports = Item;
