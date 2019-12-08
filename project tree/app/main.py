@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import datetime
 from pydantic import BaseModel
+from fbprophet import Prophet
 
 # PATH
 DATAPATH = '../notebooks/'
