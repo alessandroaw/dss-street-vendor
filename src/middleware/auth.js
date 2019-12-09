@@ -1,6 +1,8 @@
 var Store = require('../models/store');
+console.log('jalan boifsdfs');
 
 const authenticate = (req, res, next) => {
+  console.log('jalan boi');
   Store.findById(req.session.storeId)
   .then((store) => {
     if(!store) {
@@ -11,14 +13,14 @@ const authenticate = (req, res, next) => {
   }).catch((e) => {
     res.redirect('/login');
   });
-}
+};
 
 const notAuthenticate = (req, res, next) => {
-  if(req.session.storeID){
-    res.redirect('/profile')
+  if(req.session.storeId){
+    res.redirect('/')
   } else {
     next();
   }
-}
+};
 
-module.exports = {authenticate, notAuthenticate}
+module.exports = {authenticate, notAuthenticate};
