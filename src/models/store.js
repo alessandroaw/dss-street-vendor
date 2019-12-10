@@ -35,9 +35,9 @@ StoreSchema.methods.toJSON = function () {
 }
 
 //authenticate input against database
-StoreSchema.statics.authenticate = async function (email, password) {
+StoreSchema.statics.authenticate = async function (username, password) {
   
-  const store = await store.findOne({email});
+  const store = await Store.findOne({username});
   
   if(!store){
     throw new Error('Unable to login');

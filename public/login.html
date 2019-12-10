@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Login page</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <link href="css/login.css" rel="stylesheet">
+</head>
+<body>
+  <div class="login-page">
+    <h1 style="color:white;" class="h1 text-center">Street Vendor DSS</h1>
+    <div class="form">
+      <form method="POST" action="/API/register" id="register-form" class="register-form">
+        <h2 class="h2">Register</h2>
+        <input name="storeName" type="text" placeholder="nama toko anda"/>
+        <input name="username" type="text" placeholder="username"/>
+        <input name="password" type="password" placeholder="password"/>
+        <input name="passwordConf" type="password" placeholder="konfirmasi password anda"/>
+        <button class="btn btn-primary btn-block">register</button>
+        <p class="message">Already registered? <a id="to-login" href="#">Sign In</a></p>
+      </form>
+      <form method="POST" action="/API/login" class="login-form">
+        <h2 class="h2">Login</h2>
+        <input name="username" type="text" placeholder="username"/>
+        <input name="password" type="password" placeholder="password"/>
+        <button class="btn btn-primary btn-block">login</button>
+        <p class="message">Not registered? <a id="to-register" href="#register-form">Create an account</a></p>
+      </form>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
