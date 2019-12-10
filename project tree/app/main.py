@@ -38,8 +38,10 @@ class Data(BaseModel):
 @app.post("/predict")
 def predict():
     # getting current date and two days
-    today = datetime.datetime.today().strftime("%Y-%m-%d")
-    twodays = (datetime.datetime.today() + datetime.timedelta(days=2)).strftime("%Y-%m-%d")
+    # today = datetime.datetime.today().strftime("%Y-%m-%d")
+    # twodays = (datetime.datetime.today() + datetime.timedelta(days=2)).strftime("%Y-%m-%d")
+    today = "2019-12-02"
+    twodays = "2019-12-07"
 
     # Create and return prediction
     results = []
@@ -59,6 +61,6 @@ def predict():
     tf_revised = prediction[(prediction['date'] > today) & (prediction['date'] < twodays)
                         ].reset_index(drop=True)
 
-    exp = tf_revised.to_json(orient="records")
+    exp = tf_revised.to_json(orient="values")
     return exp
 
