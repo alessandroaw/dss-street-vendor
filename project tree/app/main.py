@@ -27,27 +27,27 @@ cols = list(tf.columns.values)
 cols.remove('date_conv')
 
 
-class Data(BaseModel):
-    food_1 : int
-    food_2 : int
-    food_3 : int
-    food_4 : int
-    date : int
+class Date(BaseModel):
+    date : str = None
 
 
 @app.post("/predict")
-def predict():
-    # getting current date and two days
-    # today = datetime.datetime.today().strftime("%Y-%m-%d")
-    # twodays = (datetime.datetime.today() + datetime.timedelta(days=2)).strftime("%Y-%m-%d")
-    today = "2019-12-02"
-    twodays = "2019-12-07"
+async def predict(date: Date):
+    # getting current date and two days (should date not provided)
+    today = datetime.datetime.today().strftime("%Y-%m-%d")
+    twodays = (datetime.datetime.today() + datetime.timedelta(days=2)).strftime("%Y-%m-%d")
+
+    if date.date is not None:
+        target_date = datetime.datetime.strptime(date.date, "%Y-%m-%d")
+        today = (target_date - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        twodays = (target_date + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        print(today)
 
     # Create and return prediction
     results = []
     for col in cols:
         model = pickle.load(open(DATAPATH+'model'+'_'+col+'.pickle', 'rb'))
-        f_df = model.make_future_dataframe(periods=7, freq='D')
+        f_df = model.make_future_dataframe(periods=30, freq='D')
         result = model.predict(f_df)
         result_tf = result[['ds', 'yhat']].rename(columns={'yhat': col})
         results.append(result_tf)
@@ -58,9 +58,13 @@ def predict():
     prediction.drop_duplicates(subset='ds', keep="first", inplace=True)
     prediction = prediction.reset_index(
         drop=True).rename(columns={'ds': 'date'})
+    
+    for col in cols:
+        prediction[col] = prediction[col].apply(np.floor).astype(int)
+
     tf_revised = prediction[(prediction['date'] > today) & (prediction['date'] < twodays)
                         ].reset_index(drop=True)
-
+    # Convert to json
     exp = tf_revised.to_json(orient="values")
     return exp
 
