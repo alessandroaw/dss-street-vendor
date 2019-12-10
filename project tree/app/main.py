@@ -30,6 +30,7 @@ cols.remove('date_conv')
 class Date(BaseModel):
     date : str = None
 
+# def 
 
 @app.post("/predict")
 async def predict(date: Date):
@@ -65,6 +66,14 @@ async def predict(date: Date):
     tf_revised = prediction[(prediction['date'] > today) & (prediction['date'] < twodays)
                         ].reset_index(drop=True)
     # Convert to json
-    exp = tf_revised.to_json(orient="values")
-    return exp
+    tf_revised = tf_revised[['Nasi goreng', 'Mie goreng', 'Kwetiau goreng', 'Kwetiau siram']]
+    exp = tf_revised.to_json(orient="records", lines=True)
+    test = pd.DataFrame([['athur', '1'], ['sandro', '3']],
+                  index=['row 1', 'row 2'],
+                 columns=['name', 'car_owned'])
+    test = test.to_json(orient="records")
+    output = {
+        "food demand prediction" : exp    
+    }
+    return output
 
