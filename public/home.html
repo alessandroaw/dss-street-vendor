@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Homepage</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/prediksi">Prediksi
+            </a>
+          </li>
+        </ul>
+      </div>
+      <a class="navbar-brand" href="#">DSS Street Vendor</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-nav">
+        <div class="nav-item">
+          <a class="nav-link" href="/API/logout">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="h1 text-center" style="font-family: lato, sans-serif;">Point of Sales</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="item-summary" class="col-md-4 order-md-2 mb-4">
+      <script id="summary-template" type="text/template">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Penjualan Anda</span>
+          <span class="badge badge-secondary badge-pill">{{total}}</span>
+        </h4>
+        <ul class="list-group mb-3">
+          {{#transactions}}
+          {{#.}}
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">{{itemName}}</h6>
+              <small class="text-muted">id produk: {{idItem}}</small>
+            </div>
+            <span id="summary-{{idItem}}-quantity" class="text-muted">{{quantity}}</span>
+          </li>
+          {{/.}}
+          {{/transactions}}
+        </ul>
+
+        <form id="summary-form " class="card p-2">
+          <div class="input-group">
+            <input id="datePicker" type="date" class="form-control" placeholder="tanggal">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-secondary">Simpan</button>
+            </div>
+          </div>
+        </form>
+      </script>
+    </div>
+
+      <div id="item-options" class="col-md-8 order-md-1">
+        <script id="menu-template" type="text/template">
+          <div class="row my-4">
+            {{#items}}
+            {{#.}}
+            <div class="col-lg-4 mb-4">
+              <div class="card h-51">
+<!--                <a class="image" href="#">-->
+<!--                  <img class="card-img-top img img-responsive full-width" src="{{img}}" alt="food image" >-->
+                <a href="#" style="position:relative; overflow:hidden; padding-bottom:70%;">
+                  <img class="card-img-top img img-responsive full-width" src="{{img}}" alt="food image" style="position:absolute;">
+                </a>
+                <div class="card-body">
+                  <h6 class="card-title text-center my-0">{{itemName}}</h6>
+                    <a id="item-{{_id}}" class="btn btn-primary btn-block" href="#">Tambahkan Item</a>
+                </div>
+              </div>
+            </div>
+            {{/.}}
+            {{/items}}
+
+          </div>
+        <!-- /.row -->
+        </script>
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+      <!-- /.col-lg-3 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-2 bg-dark fixed-bottom">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; DSS Kelompok 3 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+  <script src="js/home.js"></script>
+</body>
+
+</html>

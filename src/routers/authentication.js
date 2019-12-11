@@ -1,13 +1,12 @@
 const express = require('express');
-const StoreTemp = require('../models/store');
+const Store = require('../models/store');
 const {authenticate} = require('../middleware/auth');
 const router = new express.Router();
 
 //POST route for updating data
 router.post('/register', (req, res, next) => {
   // confirm that user typed same password twice
-  console.log(req.body);
-  
+
   if (req.body.password !== req.body.passwordConf) {
       const err = new Error('Passwords do not match.');
       err.status = 400;
@@ -15,24 +14,24 @@ router.post('/register', (req, res, next) => {
       return next(err);
   }
 
-  if (req.body.email &&
+  if (req.body.storeName &&
       req.body.username &&
       req.body.password &&
       req.body.passwordConf) {
 
-      var adminData = {
-        email: req.body.email,
+      var userData = {
+        storeName: req.body.storeName,
         username: req.body.username,
         password: req.body.password,
         passwordConf: req.body.passwordConf,
       };
 
-      StoreTemp.create(adminData, function (error, admin) {
+      Store.create(userData, function (error, user) {
       if (error) {
           return next(error);
       } else {
-          req.session.adminId = admin._id;
-          return res.redirect('/profile');
+          req.session.userId = user._id;
+          return res.redirect('/');
       }
       });
 
@@ -43,16 +42,16 @@ router.post('/register', (req, res, next) => {
   }
 });
 
-router.post('/admin/login', async (req, res, next) => { 
+router.post('/login', async (req, res, next) => {
   
-  if (req.body.email && req.body.password) {
-    var email = req.body.email;
+  if (req.body.username && req.body.password) {
+    var username = req.body.username;
     var password = req.body.password;
     
     try {
-      const admin = await StoreTemp.authenticate(email, password);
-      req.session.adminId = admin._id;
-      res.redirect('/admin/sirkulasi');
+      const user = await Store.authenticate(username, password);
+      req.session.storeId = user._id;
+      res.redirect('/');
     
     } catch (e) {
       e.status = 400;
@@ -63,15 +62,15 @@ router.post('/admin/login', async (req, res, next) => {
 
 // GET route after registering
 router.get('/profile', authenticate, (req, res) => {
-  admin = req.admin;
+  user = req.user;
   res.send(`
-    <h1>Name: </h1>${admin.username} 
-    <h2>Mail: </h2>${admin.email}<br>
-    <a type="button" href="/admin/logout">Logout</a>`)
+    <h1>Username: </h1>${user.username} 
+    <h2>StoreName: </h2>${user.storeName}<br>
+    <a type="button" href="/user/logout">Logout</a>`)
 });
 
 // GET for logout logout
-router.get('/admin/logout',  (req, res, next) =>  {
+router.get('/logout',  (req, res, next) =>  {
   if (req.session) {
     // delete session object
 
@@ -79,25 +78,10 @@ router.get('/admin/logout',  (req, res, next) =>  {
       if (err) {
         return next(err);
       } else {
-        return res.redirect('/admin/login');
+        return res.redirect('/login');
       }
     });
   }
 });
 
 module.exports = router;
-
-const properDate = (val) => {
-    let date = new Date(val);
-    let dd = date.getDate();
-    let mm = date.getMonth() + 1;
-    let yyyy = date.getFullYear();
-
-    if (dd < 10) {
-        dd = '0' + dd;
-    }
-    if (mm < 10) {
-        mm = '0' + mm;
-    }
-    return `${dd}/${mm}/${yyyy}`;
-};
