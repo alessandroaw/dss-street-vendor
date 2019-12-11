@@ -75,43 +75,17 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{#items}}
+                {{#.}}
                 <tr>
-                    <th scope="row">Nasi Goreng</th>
-                    <td>100 KG</td>
+                    <th scope="row">{{itemName}}</th>
+                    <td>{{quantity}}</td>
                 </tr>
-                <tr>
-                    <th scope="row">Nasi Goreng</th>
-                    <td>100 KG</td>
-                </tr>
-                <tr>
-                    <th scope="row">Nasi Goreng</th>
-                    <td>100 KG</td>
-                </tr>
+                {{/.}}
+                {{/items}}
                 </tbody>
             </table>
 
-            <table class="table table-bordered mt-3">
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col">Nama Bahan</th>
-                    <th scope="col">Jumlah</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">Nasi</th>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <th scope="row">Nasi</th>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <th scope="row">Nasi</th>
-                    <td>100</td>
-                </tr>
-                </tbody>
-            </table>style="position: fixed"
     </script>
     </div>
 </div>

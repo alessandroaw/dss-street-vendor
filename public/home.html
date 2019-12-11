@@ -96,7 +96,11 @@
             {{#.}}
             <div class="col-lg-4 mb-4">
               <div class="card h-51">
-                <a href="#"><img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTmYZvL-qIqZVbjMVETkAur6cwri-1BTy624QZOM28nTYZgsRhs" alt="food image"></a>
+<!--                <a class="image" href="#">-->
+<!--                  <img class="card-img-top img img-responsive full-width" src="{{img}}" alt="food image" >-->
+                <a href="#" style="position:relative; overflow:hidden; padding-bottom:70%;">
+                  <img class="card-img-top img img-responsive full-width" src="{{img}}" alt="food image" style="position:absolute;">
+                </a>
                 <div class="card-body">
                   <h6 class="card-title text-center my-0">{{itemName}}</h6>
                     <a id="item-{{_id}}" class="btn btn-primary btn-block" href="#">Tambahkan Item</a>
