@@ -7,6 +7,8 @@ import pandas as pd
 import datetime
 from pydantic import BaseModel
 from fbprophet import Prophet
+import requests
+from starlette.responses import Response
 
 # PATH
 DATAPATH = '../notebooks/'
@@ -30,7 +32,27 @@ cols.remove('date_conv')
 class Date(BaseModel):
     date : str = None
 
-# def 
+def convertToBahan(tf_revised, cols):
+    resp = requests.get("http://localhost:3000/API/item")
+    bahan = resp.json()
+    menu = [{}]
+    for col in cols:
+        ds = {}
+        menu.append(ds)
+    i = 0
+    for col in cols:
+        menu[i]['foodName'] = col
+        menu[i]['ingredients'] = []
+        for x in bahan:
+            if x['itemName'] == col:
+                les = []
+                for a in x['ingredients']:
+                    les = {'ingredientName':a['ingredientName'],'quantity':a['quantity']*tf_revised[col].values[0], 'metric':a['metric']}
+                    menu[i]['ingredients'].append(les)
+        i = i+1
+    menu.pop()
+    return menu
+
 
 @app.post("/predict")
 async def predict(date: Date):
@@ -65,15 +87,17 @@ async def predict(date: Date):
 
     tf_revised = prediction[(prediction['date'] > today) & (prediction['date'] < twodays)
                         ].reset_index(drop=True)
-    # Convert to json
-    tf_revised = tf_revised[['Nasi goreng', 'Mie goreng', 'Kwetiau goreng', 'Kwetiau siram']]
-    exp = tf_revised.to_json(orient="records", lines=True)
-    test = pd.DataFrame([['athur', '1'], ['sandro', '3']],
-                  index=['row 1', 'row 2'],
-                 columns=['name', 'car_owned'])
-    test = test.to_json(orient="records")
-    output = {
-        "food demand prediction" : exp    
-    }
+    # Convert to bahan
+    menu_bahan = convertToBahan(tf_revised, cols)
+
+    tf_revised = tf_revised[['Mie Ayam','Bakso Goreng','Bakso Keju']]
+    exp = tf_revised.to_dict(orient="records")
+    output = []
+    for col in cols:
+        les = {}
+        les['itemName'] = col
+        les['quantity'] = exp[0][col]
+        output.append(les)
+
     return output
 
