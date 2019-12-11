@@ -1,8 +1,6 @@
 var Store = require('../models/store');
-console.log('jalan boifsdfs');
 
 const authenticate = (req, res, next) => {
-  console.log('jalan boi');
   Store.findById(req.session.storeId)
   .then((store) => {
     if(!store) {

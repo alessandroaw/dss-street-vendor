@@ -6,8 +6,7 @@ const router = new express.Router();
 //POST route for updating data
 router.post('/register', (req, res, next) => {
   // confirm that user typed same password twice
-  console.log(req.body);
-  
+
   if (req.body.password !== req.body.passwordConf) {
       const err = new Error('Passwords do not match.');
       err.status = 400;
@@ -71,7 +70,7 @@ router.get('/profile', authenticate, (req, res) => {
 });
 
 // GET for logout logout
-router.get('/user/logout',  (req, res, next) =>  {
+router.get('/logout',  (req, res, next) =>  {
   if (req.session) {
     // delete session object
 

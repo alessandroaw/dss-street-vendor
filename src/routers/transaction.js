@@ -3,6 +3,7 @@ const router = new express.Router();
 
 const Transaction = require('../models/transaction');
 const Item = require('../models/item');
+const {authenticate} = require('../middleware/auth');
 
 //POST one
 router.post('/transaction', async (req, res) => {
@@ -30,12 +31,27 @@ router.post('/transaction-batch', async (req, res) => {
     }
 });
 
+//POST batch with session
+router.post('/transaction-batch/session', authenticate, async (req, res) => {
+    let  transactions = req.body;
+    transactions = transactions.map((transaction) => {
+       transaction.idStore = req.session.storeId;
+       return transaction;
+    });
+
+    try {
+        const response = await Transaction.insertMany(transactions);
+        res.status(201).send(response);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
+
 //GET many
 //also get by idStore
 // transaction?idStore={idStore}&?nDays={x}
 router.get('/transaction', async (req, res) => {
     const match = req.query.idStore? {idStore: req.query.idStore} : {};
-    console.log(match);
 
     if (req.query.nDays) {
         let nDaysBefore = new Date();

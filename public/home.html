@@ -30,7 +30,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Prediksi
+            <a class="nav-link" href="/prediksi">Prediksi
             </a>
           </li>
         </ul>
@@ -51,58 +51,68 @@
   <!-- Page Content -->
   <div class="container">
 
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="h1 text-center" style="font-family: lato, sans-serif;">Point of Sales</h1>
+      </div>
+    </div>
+
     <div class="row">
-      <div class="col-lg-9">
+      <div id="item-summary" class="col-md-4 order-md-2 mb-4">
+      <script id="summary-template" type="text/template">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Penjualan Anda</span>
+          <span class="badge badge-secondary badge-pill">{{total}}</span>
+        </h4>
+        <ul class="list-group mb-3">
+          {{#transactions}}
+          {{#.}}
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">{{itemName}}</h6>
+              <small class="text-muted">id produk: {{idItem}}</small>
+            </div>
+            <span id="summary-{{idItem}}-quantity" class="text-muted">{{quantity}}</span>
+          </li>
+          {{/.}}
+          {{/transactions}}
+        </ul>
 
-        <div class="row my-4">
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-51">
-              <a href="#"><img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTmYZvL-qIqZVbjMVETkAur6cwri-1BTy624QZOM28nTYZgsRhs" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item One</a>
-                </h4>
-              </div>
+        <form id="summary-form " class="card p-2">
+          <div class="input-group">
+            <input id="datePicker" type="date" class="form-control" placeholder="tanggal">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-secondary">Simpan</button>
             </div>
           </div>
+        </form>
+      </script>
+    </div>
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-51">
-              <a href="#"><img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTmYZvL-qIqZVbjMVETkAur6cwri-1BTy624QZOM28nTYZgsRhs" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Two</a>
-                </h4>
+      <div id="item-options" class="col-md-8 order-md-1">
+        <script id="menu-template" type="text/template">
+          <div class="row my-4">
+            {{#items}}
+            {{#.}}
+            <div class="col-lg-4 mb-4">
+              <div class="card h-51">
+                <a href="#"><img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTmYZvL-qIqZVbjMVETkAur6cwri-1BTy624QZOM28nTYZgsRhs" alt="food image"></a>
+                <div class="card-body">
+                  <h6 class="card-title text-center my-0">{{itemName}}</h6>
+                    <a id="item-{{_id}}" class="btn btn-primary btn-block" href="#">Tambahkan Item</a>
+                </div>
               </div>
             </div>
-          </div>
+            {{/.}}
+            {{/items}}
 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-51">
-              <a href="#"><img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTmYZvL-qIqZVbjMVETkAur6cwri-1BTy624QZOM28nTYZgsRhs" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Three</a>
-                </h4>
-              </div>
-            </div>
           </div>
-        </div>
         <!-- /.row -->
+        </script>
 
       </div>
       <!-- /.col-lg-9 -->
 
-      <div class="col-lg-3">
-
-        <div class="my-4 list-group">
-          <a href="#" class="list-group-item">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
-        </div>
-
-      </div>
       <!-- /.col-lg-3 -->
 
     </div>
@@ -123,7 +133,8 @@
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+  <script src="js/home.js"></script>
 </body>
 
 </html>
