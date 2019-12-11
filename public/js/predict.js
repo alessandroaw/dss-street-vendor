@@ -4,13 +4,13 @@ const $forecastResult = document.querySelector("#forecast-result");
 const resultTemplate = document.querySelector("#result-template").innerHTML;
 
 console.log("loaded");
-$predictButton.addEventListener("click", (event) => {
+$predictButton.addEventListener("click", async (event) => {
     event.preventDefault();
     while ($forecastResult.firstChild) $forecastResult.removeChild($forecastResult.firstChild);
     const value = $dateValue.value;
     console.log(`date value: ${value}`);
 
-    const items = getItems();
+    const items = await getItems();
     const html = Mustache.render(resultTemplate,{items});
     $forecastResult.insertAdjacentHTML("beforeend", html);
 });
@@ -34,10 +34,7 @@ async function getItems() {
 
     json = await response.json();
 
-    return [
-        {itemName: "tes", quantity:"120"},
-        {itemName: "tes", quantity:"120"},
-        {itemName: "tes", quantity:"120"}];
+    return json;
 }
 
 Date.prototype.toDateInputValue = (function() {
